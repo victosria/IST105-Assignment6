@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Bitwise Calculator</title>
+</head>
+<body>
+    <h2>Enter 5 Values</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Calculate</button>
+    </form>
+
+    {% if result %}
+        <h3>Results</h3>
+        <p>Average: {{ result.average }}</p>
+        <p>Average > 50: {{ result.is_average_greater_50 }}</p>
+        <p>Positive Count: {{ result.positive_count }}</p>
+        <p>Is Positive Count Even: {{ result.is_positive_count_even }}</p>
+        <p>Sorted > 10: {{ result.sorted_list_gt_10_str }}</p>
+        <a href="{% url 'list_entries' %}">View All Entries</a>
+    {% endif %}
+</body>
+</html>

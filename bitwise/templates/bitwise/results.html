@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment #6 - Results</title>
+    <style>
+        body { font-family: sans-serif;
+background-color: #f0f2f5; display: flex; justify-content: center; padding-top: 50px; }
+        .container { background-color: #fff;
+padding: 30px 40px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, .1); width: 100%; max-width: 800px;
+}
+        h1, h2 { text-align: center;
+}
+        ul { list-style: none; padding: 0;
+}
+        li { margin-bottom: 8px;
+}
+        a { display: inline-block; margin-top: 20px; text-decoration: none; background-color: #007bff; color: #fff;
+padding: 10px 15px; border-radius: 5px; }
+        a:hover { background-color: #0056b3;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Processing Results</h1>
+       {% if warnings %}
+            <ul>
+            {% for warning in warnings %}
+                <li><strong style="color:orange;"> {{ warning }} </strong></li>
+
+{% endfor %}
+            </ul>
+        {% endif %}
+        <ul>
+            <li><strong>Original Values:</strong>  {{ original_values|join:", " }} </li>
+            <li><strong>Sorted Values (> 10):</strong>  {{ results.sorted_list_gt_10|join:", " |
+default:"None" }} </li>
+            <li><strong>Average:</strong>  {{ results.average|floatformat:2 }} </li>
+            <li><strong>Is Average > 50?
+</strong>  {{ results.is_average_greater_50 }} </li>
+            <li><strong>Count of Positive Numbers:</strong>  {{ results.positive_count }} </li>
+            <li><strong>Is Positive Count Even?
+(Bitwise Check):</strong>  {{ results.is_positive_count_even }} </li>
+            <li><strong>MongoDB Status:</strong>  {{ results.save_status }} </li>
+        </ul>
+        <a href="{% url 'input_home' %}"> Enter New Data </a>
+        <a href="{% url 'list_entries' %}" style="margin-left: 10px;"> View Saved Entries </a>
+    </div>
+</body>
+</html>

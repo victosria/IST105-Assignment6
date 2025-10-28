@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment #6 - Saved Entries</title>
+    <style>
+        body { font-family: sans-serif;
+background-color: #f0f2f5; padding: 30px; }
+        .container { background-color: #fff; padding: 30px 40px;
+border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, .1); max-width: 1200px; margin: auto;
+}
+        h1 { text-align: center;
+}
+        table { width: 100%; border-collapse: collapse; margin-top: 20px;
+}
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left;
+}
+        th { background-color: #e9ecef;
+}
+        a { display: inline-block; margin-top: 20px; text-decoration: none; background-color: #007bff; color: #fff;
+padding: 10px 15px; border-radius: 5px; }
+        a:hover { background-color: #0056b3;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>All Saved Entries</h1>
+       {% if error %}
+            <p style="color:red;"><strong> {{ error }} </strong></p>
+        {% elif entries %}
+            <table>
+
+<thead>
+                    <tr>
+                        <th> Timestamp </th>
+                        <th> Inputs (A,B,C,D,E) </th>
+                        <th> Average </th>
+                        <th> Avg > 50?
+</th>
+                        <th> Positive Count </th>
+                        <th> Count Even?
+</th>
+                        <th> Sorted > 10 </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+{% for entry in entries %}
+                    <tr>
+                        <td> {{ entry.timestamp|date:"Y-m-d H:i:s" }} </td>
+                        <td> {{ entry.input_a}}, {{ entry.input_b }}, {{ entry.input_c}}, 
+{{ entry.input_d}}, {{ entry.input_e }} </td>
+                        <td> {{ entry.average|floatformat:2 }} </td>
+                        <td> {{ entry.is_average_greater_50 }} </td>
+                        <td> {{ entry.positive_count }} </td>
+<td> {{ entry.is_positive_count_even }} </td>
+                        <td> {{ entry.sorted_list_gt_10_str }} </td>
+                    </tr>
+                   {% endfor 
+%}
+                </tbody>
+            </table>
+        {% else %}
+            <p> No entries found in the database.
+</p>
+        {% endif %}
+        <a href="{% url 'input_home' %}"> Go Back </a>
+    </div>
+</body>
+</html>
